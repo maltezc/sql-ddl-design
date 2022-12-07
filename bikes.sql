@@ -14,7 +14,7 @@ CREATE TABLE bikes (
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     customer_id NOT NULL REFERENCES customers,
-    total_cost NUMERIC(10,2) NOT NULL,
+    total_cost NUMERIC(10,2) NOT NULL, -- NOT NECESSARY
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
