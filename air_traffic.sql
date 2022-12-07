@@ -1,5 +1,43 @@
 CREATE TABLE tickets (
   id SERIAL PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  flights_id INT NOT NULL REFERENCES flights,
+  seat VARCHAR(3) NOT NULL,
+  UNIQUE(first_name,last_name,seat,flights_id),(seat,flights_id)
+  );
+
+CREATE TABLE flights(
+  id SERIAL PRIMARY KEY
+  airline_id INT NOT NULL REFERENCES airlines,
+  departure_time TIMESTAMP WITH TIMEZONE NOT NULL,
+  departure_city INT NOT NULL REFERENCES cities,
+  arrival_time TIMESTAMP NOT NULL,
+  destination_city INT NOT NULL REFERENCES cities
+)
+
+CREATE TABLE airlines(
+  id SERIAL PRIMARY KEY,
+  airline_name VARCHAR(30) NOT NULL UNIQUE
+);
+
+CREATE TABLE cities(
+  id SERIAL PRIMARY KEY,
+  city_name VARCHAR(30) NOT NULL UNIQUE,
+  country_code INT NOT NULL
+);
+
+CREATE table countries(
+  id SERIAL PRIMARY Key,
+  country_name VARCHAR(30) NOT NULL UNIQUE
+);
+
+
+
+
+-- OG code.
+/* CREATE TABLE tickets (
+  id SERIAL PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
   seat TEXT,
@@ -9,12 +47,11 @@ CREATE TABLE tickets (
   from_city TEXT,
   from_country TEXT,
   to_city TEXT,
-  to_country TEXT);
+  to_country TEXT); */
 
-INSERT INTO tickets(first_name, last_name, seat,
-                    departure, arrival, airline,
-                    from_city, from_country,
-                    to_city, to_country)
+INSERT INTO tickets(first_name, last_name, seat,airline
+                    departure_time, arrival_time,
+                    departure_id, destination_id)
   VALUES
   ('Jennifer', 'Finch', '33B',
    '2018-04-08 09:00:00', '2018-04-08 12:00:00', 'United',
