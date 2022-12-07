@@ -14,15 +14,17 @@ CREATE TABLE bikes (
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     customer_id NOT NULL REFERENCES customers,
-    total_cost NUMERIC(10,2) NOT NULL, -- NOT NECESSARY
+    -- total_cost NUMERIC(10,2) NOT NULL, -- NOT NECESSARY
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE order_items (
-    order_id_reference REFERENCES orders,
-    bike_model VARCHAR(30) REFERENCES bikes, -- references bike short name
+    id SERIAL PRIMARY KEY, -- NECESSARY
+    order_id_reference INT NOT NULL REFERENCES orders,
+    bike_model VARCHAR(30) NOT NULL REFERENCES bikes, -- references bike short name
     sold_price NUMERIC(10,2) NOT NULL,
-    notes VARCHAR(255)
+    notes TEXT NOT NULL DEFAULT ''
+    -- // notes VARCHAR(255)
 );
 
 -- INSERT VALUES
